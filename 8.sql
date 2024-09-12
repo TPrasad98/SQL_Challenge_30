@@ -37,21 +37,20 @@ Output:
 -- My Solution
 -- -------------------------------------------------------------
 
-select * from transactionss;
-
 SELECT 
-    DATE_FORMAT(trans_date, '%Y-%m') AS month,
-    country,
-    COUNT(*) AS trans_count,
-    SUM(CASE WHEN state = 'approved' THEN 1 ELSE 0 END) AS approved_count,
-    SUM(amount) AS trans_total_amount,
-    SUM(CASE WHEN state = 'approved' THEN amount ELSE 0 END) AS approved_total_amount
+    DATE_FORMAT(trans_date, '%Y-%m') AS month,          -- Extracts the month and year from the transaction date.
+    country,                                            -- Retrieves the country.
+    COUNT(*) AS trans_count,                            -- Counts the total number of transactions.
+    SUM(CASE WHEN state = 'approved' THEN 1 ELSE 0 END) AS approved_count,  -- Counts the number of approved transactions.
+    SUM(amount) AS trans_total_amount,                  -- Sums up the total transaction amounts.
+    SUM(CASE WHEN state = 'approved' THEN amount ELSE 0 END) AS approved_total_amount  -- Sums the amount of approved transactions.
 FROM 
     Transactionss
 GROUP BY 
-    month, country
+    month, country                                      -- Groups by month and country.
 ORDER BY 
-    month, country;
+    month, country;                                     -- Orders the result by month and country.
+
 
 
 
@@ -112,13 +111,13 @@ Sort the output first by month and then by product ID.
 -- ---------------------------------
 
 
-SELECT * FROM reviews;
-
-
 SELECT 
-	EXTRACT(month from submit_date) as month,
-    product_id,
-    ROUND(avg(stars),2) as avg_rating
-FROM reviews
-GROUP BY 1,2
-ORDER BY 1,2;
+    EXTRACT(month FROM submit_date) AS month,           -- Extracts the month as a numerical value from the submit date.
+    product_id,                                         -- Retrieves the product ID.
+    ROUND(AVG(stars), 2) AS avg_rating                  -- Calculates the average star rating rounded to 2 decimal places.
+FROM 
+    reviews
+GROUP BY 
+    month, product_id                                   -- Groups the results by month and product ID.
+ORDER BY 
+    month, product_id;                                  -- Orders the result first by month and then by product ID.
