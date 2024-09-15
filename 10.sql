@@ -45,28 +45,23 @@ the user ID, post ID, engagement count, and rank for each post.
 */
 
 
-select * from fb_posts;
-
-
 WITH engagement_rankings AS
 	(
     SELECT 
-		user_id ,
+	user_id ,
         post_id,
         sum(likes+ comments) as engagement_count,
         ROW_NUMBER() OVER(PARTITION BY user_id ORDER BY SUM(likes + comments) DESC) rn,
-		DENSE_RANK() OVER(PARTITION BY user_id ORDER BY SUM(likes + comments) DESC) ranks
+	DENSE_RANK() OVER(PARTITION BY user_id ORDER BY SUM(likes + comments) DESC) ranks
         FROM fb_posts
 	GROUP BY user_id, post_id
 	ORDER BY user_id, engagement_count DESC
-        
-    )
-    
+    )    
 SELECT 
 	user_id,
-    post_id,
-    engagement_count,
-    rn
+    	post_id,
+   	engagement_count,
+    	rn
 FROM
 	engagement_rankings
 WHERE
