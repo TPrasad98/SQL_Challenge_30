@@ -1,4 +1,4 @@
--- 13/30 SQL Challenge
+-- 10/30 SQL Challenge
 
 -- Facebook medium level SQL question for Data Analyst 
 -- ---------------------------------------------------
@@ -159,3 +159,6 @@ SELECT *
 FROM recentposts
 WHERE num_of_posts >= 2
 ;
+
+
+
